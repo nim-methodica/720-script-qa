@@ -1,0 +1,18 @@
+# פלט בקרה (נוצר בכל הרצה, לא חלק מהסקיל)
+reports/
+report-*.md
+report-*.html
+# אך כן לשמר את דוח-הדוגמה הארוז
+!examples/
+!examples/**
+
+# קלט מוגן-זכויות / מקומי (ספרי לימוד, תסריטים)
+input/
+*.pptx
+*.pdf
+
+# מערכת
+.DS_Store
+Thumbs.db
+*.tmp
+desktop.ini
