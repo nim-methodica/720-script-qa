@@ -25,6 +25,21 @@ slides = [(parts[i], parts[i + 1]) for i in range(1, len(parts), 2)]
 N = len(slides)
 
 REPEAT_OK = {"שלב שלב", "סוף סוף", "מאוד מאוד", "לאט לאט", "יום יום", "טוב טוב", "חבל חבל"}
+
+# --- רובד לשוני (#1/#21): סף משפט, watchlist אקדמי/מליצי, תבניות יתירות ---
+SENTENCE_MAX = 25   # מילים למשפט — מעל זה דגל (גיל 13–14)
+ACADEMIC = [        # מילים/ביטויים ברובד גבוה מדי לגיל ז'–ח' (העדפה לחלופה יומיומית)
+    "הינו", "הינה", "הינם", "כתוצאה מכך", "יתרה מזאת", "יתרה מכך", "נוכח העובדה",
+    "אי לכך", "חרף", "על אודות", "הללו", "בטרם", "כאמור", "שמא", "לעת עתה",
+    "במידה ו", "על מנת", "אשר", "בעבור", "כיוון לכך",
+]
+ACADEMIC_RE = re.compile(r"(?<![א-ת])(" + "|".join(re.escape(w) for w in ACADEMIC) + r")(?![א-ת])")
+REDUNDANCY = [      # תבניות יתירות נפוצות (זיהוי + הצעה)
+    (re.compile(r"(?<![א-ת])(\S{2,})\s*,\s*\1(?![א-ת])"), "מילה כפולה עם פסיק"),
+    (re.compile(r"(?<![א-ת])בעצם(?![א-ת])"), "מילת-מילוי 'בעצם'"),
+    (re.compile(r"(?<![א-ת])ממש ממש(?![א-ת])"), "הגזמה כפולה 'ממש ממש'"),
+    (re.compile(r"חזרה\s+בחזרה|יחד\s+ביחד"), "כפל מיותר"),
+]
 findings = {}   # slide -> list[(check, detail)]
 
 def add(sl, check, detail):
@@ -77,6 +92,20 @@ for sl, body in slides:
         # #3 פנייה ממוגדרת יחיד
         for mm in re.finditer(r"\bאתה\b|\bתבחר\b|\bבחר\b(?!ו)|\bהקלד\b(?!ו)|\bלחץ\b(?!ו)|\bענה\b(?!ו)|\bסמן\b(?!ו)", s):
             add(sl, "#3 פנייה ממוגדרת", f'"…{ctx(s, mm.start())}…"')
+        # #1 רובד גבוה/מליצי (watchlist — לבדוק register מול language-and-register.md)
+        for mm in ACADEMIC_RE.finditer(s):
+            add(sl, "#1 רובד גבוה (לבדוק register)", f'"{mm.group(1)}" — …{ctx(s, mm.start())}…')
+        # #1 תבניות יתירות
+        for pat, lab in REDUNDANCY:
+            for mm in pat.finditer(s):
+                add(sl, f"#1 יתירות — {lab}", f'"…{ctx(s, mm.start())}…"')
+
+    # #1 משפט ארוך (>SENTENCE_MAX מילים) — פר-משפט, בנוסף לעומס-השקף (#25)
+    blob = " ".join(s for s, _ in body_lines(visible) if "methodica" not in s)
+    for sent in re.split(r"(?<=[.!?])\s+|[\n]+", blob):
+        nw = len(sent.split())
+        if nw > SENTENCE_MAX:
+            add(sl, f"#1 משפט ארוך (>{SENTENCE_MAX} מילים)", f'{nw} מילים: "…{sent.strip()[:48]}…"')
 
     # #25 עומס קריאה — ספירת מילים בטקסט גלוי (סף >70=🟠, >120=🔴)
     words = sum(len(s.split()) for s, _ in body_lines(visible) if "methodica" not in s)
