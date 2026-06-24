@@ -1,10 +1,8 @@
-# פלט בקרה (נוצר בכל הרצה, לא חלק מהסקיל)
+# פלט בקרה (נוצר בכל הרצה, לא חלק מהסקיל) — מעוגן לשורש בלבד,
+# כדי לא לתפוס את references/report-template.md או את examples/
 reports/
-report-*.md
-report-*.html
-# אך כן לשמר את דוח-הדוגמה הארוז
-!examples/
-!examples/**
+/report-*.md
+/report-*.html
 
 # קלט מוגן-זכויות / מקומי (ספרי לימוד, תסריטים)
 input/
