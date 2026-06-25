@@ -57,7 +57,13 @@ while (i < lines.length) {
     const sm = m[1].match(/שקף\s+(\d+)/);
     out.push(`<h3${sm ? ` id="slide-${sm[1]}"` : ''}>${inline(m[1])}</h3>`); i++; continue;
   }
-  if ((m = line.match(/^>\s?(.*)/))) { closeList(); out.push(`<blockquote>${inline(m[1])}</blockquote>`); i++; continue; }
+  if ((m = line.match(/^>\s?(.*)/))) {
+    closeList();
+    const txt = m[1];
+    if (/^📌/.test(txt.trim())) out.push(`<div class="callout pin">${inline(txt)}</div>`); // ריבוע-הערה כללית
+    else out.push(`<blockquote>${inline(txt)}</blockquote>`);
+    i++; continue;
+  }
   if ((m = line.match(/^[-*]\s+(.*)/))) {
     if (!inList) { out.push('<ul>'); inList = true; }
     out.push(`<li class="${sevClass(line)}">${inline(m[1])}</li>`); i++; continue;
@@ -95,6 +101,9 @@ const html = `<!DOCTYPE html>
   tr.polish  td:first-child { border-inline-start:5px solid var(--polish);  background:#eaf2fd; }
   code { background:#eee; padding:1px 5px; border-radius:4px; font-family:Consolas,monospace; direction:ltr; display:inline-block; }
   blockquote { color:#555; border-inline-start:3px solid #bbb; margin:12px 0; padding:4px 12px; font-style:italic; }
+  .callout.pin { background:#f3eefe; border:2px solid #7c3aed; border-radius:12px; padding:14px 18px; margin:0 0 22px;
+    color:#3b2a78; font-size:1rem; box-shadow:0 4px 14px rgba(124,58,237,.12); }
+  .callout.pin strong { color:#5b21b6; }
   ul { padding-inline-start:20px; }
   strong { color:#000; }
 </style>
