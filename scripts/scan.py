@@ -82,9 +82,9 @@ for sl, body in slides:
         # #4 כפל לטיני
         for mm in re.finditer(r"\d\s*[xX*]\s*\d", s):
             add(sl, "#4 כפל לטיני (→ ·)", f'"…{ctx(s, mm.start())}…"')
-        # #4 מקף-מקלדת בין מספרים עצמאיים (טווח → en-dash) — לא מזהים/תאריכים
-        for mm in re.finditer(r"(?<![\w./-])\d{1,4}\s*-\s*\d{1,4}(?![\w./:-])", s):
-            add(sl, "#4 מקף בין-מספרי (→ –/−)", f'"…{ctx(s, mm.start())}…"')
+        # #2 מקף ארוך (— em-dash / – en-dash) — לא תקני בעברית + סימן-היכר של טקסט מ-AI
+        for mm in re.finditer(r"[—–]", s):
+            add(sl, "#2 מקף ארוך (—/–) — חשד-AI", f'"…{ctx(s, mm.start())}…" → להחליף ב-"-" או לנסח מחדש')
         # #1 מילה כפולה (לא אידיום)
         for mm in re.finditer(r"\b([א-ת]{2,})\s+\1\b", s):
             if mm.group(0) not in REPEAT_OK:
