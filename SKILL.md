@@ -1,11 +1,16 @@
 ---
 name: 720-script-qa
 description: >-
-  Quality-assurance review of full training scripts (תסריטי הדרכה) delivered as PowerPoint (.pptx).
-  Use when the user asks to QA / review / תקף / "בקרת איכות" / "בדוק תסריט" a learning-script PPTX
-  (7th-8th grade science/math units). Produces a detailed per-slide Markdown + HTML report of issues
-  and fix recommendations across 31 checks — it does NOT edit the script, only reports for the
-  learning developer to decide. Do not use for individual question files (v.md) — that has its own pipeline.
+  Quality-assurance review of full 720 / methodica training scripts (תסריטי הדרכה) delivered as
+  PowerPoint (.pptx) — 7th-8th grade science/math units built to the 720 curriculum spec: 4-רכיב
+  structure with divider slides, methodica-* IDs, אמ"ה / science-verb taxonomy, אמיל"י, and a
+  filename that usually contains "יעד". Use when the user asks to QA / תקף / "בקרת איכות" /
+  "בדוק תסריט" a 720 learning-script PPTX (esp. filename with "יעד" or an explicit 720 mention).
+  Produces a detailed per-slide Markdown + HTML report across 31 checks — it does NOT edit the
+  script, only reports for the learning developer to decide.
+  Do NOT use for: general or other-project training scripts NOT built to the 720 spec, generic
+  PPTX decks, or individual question files (v.md — own pipeline). The 31 checks are calibrated for
+  720 only; if the script lacks 720 fingerprints, warn the user before proceeding.
 ---
 
 # Script-QA — בקרת איכות לתסריטי הדרכה
@@ -43,6 +48,22 @@ description: >-
 ### 1. זיהוי קלט
 המפתח/ת בדרך כלל **יעלה/תעלה את ה-PPTX לצ'אט** (לא תהיה תיקיית-תסריטים קבועה). השתמש בנתיב הקובץ
 שצורף/הועלה; אם לא ברור — שאל לאיזה קובץ להתייחס. בדוק תסריט אחד בכל הרצה.
+
+### 1.5 שער זיהוי-720 (חובה — הסקיל מכויל ל-720 בלבד)
+הבדיקות מכוילות **אך ורק** לתסריטי 720/מתודיקה. אל תריץ בקרה על תסריט כללי או מפרויקט אחר בלי אישור.
+זהה שהתסריט הוא 720 לפי **סימנים** — עדיף כמה שיותר:
+
+- **שם הקובץ מכיל "יעד"** (סממן מוקדם וחזק ל-720; זמין עוד לפני חילוץ) — או שהמשתמש ציין "720"/מתודיקה במפורש.
+- **אחרי החילוץ (שלב 2), אמת טביעות-אצבע בתוכן** — לפחות אחת-שתיים:
+  - מזהי `methodica-{תחום}-{נושא}-NN-NN-NNN` בשקפי-החוצץ.
+  - מבנה **4 רכיבים** עם שקפי-חוצץ.
+  - **טבלת מטא בשקף 1** עם ספירות חימום/בסיסי/סטנדרטי/מתקדם + בחירת-דמות + אורייניות.
+  - טרמינולוגיית 720: טקסונומיית אמ"ה / 12 פעלי-מדעים / אמיל"י / רמות (בסיסי-סטנדרטי-מתקדם).
+
+**החלטה:**
+- יש "יעד" בשם **או** נמצאה ≥1 טביעת-אצבע → זה 720, המשך רגיל.
+- **אין אף סימן** → אל תריץ. אמור למשתמש: *"הקובץ לא נראה כתסריט 720 (אין 'יעד' בשם ולא זוהו מזהי
+  methodica/מבנה 4-רכיבים/טבלת-מטא). 31 הבדיקות מכוילות ל-720 בלבד — להריץ בכל זאת?"* והמתן לאישור.
 
 ### 2. חילוץ טקסט
 ```bash
