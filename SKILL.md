@@ -1,5 +1,5 @@
 ---
-name: script-qa
+name: 720-script-qa
 description: >-
   Quality-assurance review of full training scripts (תסריטי הדרכה) delivered as PowerPoint (.pptx).
   Use when the user asks to QA / review / תקף / "בקרת איכות" / "בדוק תסריט" a learning-script PPTX
