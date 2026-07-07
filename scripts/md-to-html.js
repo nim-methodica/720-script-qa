@@ -107,10 +107,79 @@ const html = `<!DOCTYPE html>
   .callout.pin strong { color:#5b21b6; }
   ul { padding-inline-start:20px; }
   strong { color:#000; }
+  /* toolbar: severity filter + done-counter (sticky) */
+  #qa-bar { position:sticky; top:0; z-index:50; display:flex; gap:8px; align-items:center;
+    background:#33405a; color:#fff; padding:8px 14px; margin:-24px -24px 18px; flex-wrap:wrap; }
+  #qa-bar button { border:1px solid #ffffff55; background:transparent; color:#fff; border-radius:8px;
+    padding:4px 12px; cursor:pointer; font:inherit; }
+  #qa-bar button.on { background:#fff; color:#33405a; font-weight:700; }
+  #qa-bar .cnt { margin-inline-start:auto; font-weight:700; }
+  body.f-blocker tr.warning, body.f-blocker tr.polish { display:none; }
+  body.f-warn tr.polish { display:none; }
+  td.done-cell { width:34px !important; text-align:center; }
+  tr.done td { opacity:.45; text-decoration:line-through; }
+  tr.done td.done-cell { opacity:1; text-decoration:none; }
 </style>
 </head>
 <body>
+<div id="qa-bar">
+  <span>סינון:</span>
+  <button data-f="" class="on">הכול</button>
+  <button data-f="f-warn">🔴+🟠</button>
+  <button data-f="f-blocker">🔴 בלבד</button>
+  <span class="cnt" id="qa-cnt"></span>
+</div>
 ${out.join('\n')}
+<script>
+(function () {
+  var KEY = 'qa-done:' + location.pathname.split('/').pop();
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  // checkbox on every severity-classed finding row — "טופל" persists in the browser
+  var rows = document.querySelectorAll('tr.blocker, tr.warning, tr.polish');
+  rows.forEach(function (tr, i) {
+    var td = document.createElement('td');
+    td.className = 'done-cell';
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.title = 'סמנו כשטופל';
+    cb.checked = !!done[i];
+    if (cb.checked) tr.classList.add('done');
+    cb.addEventListener('change', function () {
+      done[i] = cb.checked;
+      tr.classList.toggle('done', cb.checked);
+      localStorage.setItem(KEY, JSON.stringify(done));
+      count();
+    });
+    td.appendChild(cb);
+    tr.insertBefore(td, tr.firstChild);
+  });
+  // matching header cell per table that got checkboxes
+  document.querySelectorAll('table').forEach(function (t) {
+    if (t.querySelector('td.done-cell') && t.tHead && t.tHead.rows[0]) {
+      var th = document.createElement('th');
+      th.className = 'done-cell';
+      th.textContent = '✔';
+      t.tHead.rows[0].insertBefore(th, t.tHead.rows[0].firstChild);
+    }
+  });
+  function count() {
+    var open = 0;
+    rows.forEach(function (tr, i) { if (!done[i]) open++; });
+    document.getElementById('qa-cnt').textContent = 'נשארו ' + open + ' מתוך ' + rows.length + ' ממצאים';
+  }
+  count();
+  // severity filter buttons
+  document.querySelectorAll('#qa-bar button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.body.classList.remove('f-warn', 'f-blocker');
+      if (b.dataset.f) document.body.classList.add(b.dataset.f);
+      document.querySelectorAll('#qa-bar button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+    });
+  });
+})();
+</script>
 </body>
 </html>`;
 
