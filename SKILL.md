@@ -2,7 +2,7 @@
 name: 720-script-qa
 description: >-
   Quality-assurance review of full 720 / methodica training scripts (תסריטי הדרכה) delivered as
-  PowerPoint (.pptx) — 7th-8th grade science/math units built to the 720 curriculum spec: 4-רכיב
+  PowerPoint (.pptx) — 7th-8th grade science/math units built to the 720 curriculum spec: 5-6 רכיב
   structure with divider slides, methodica-* IDs, אמ"ה / science-verb taxonomy, אמיל"י, and a
   filename that usually contains "יעד". Use when the user asks to QA / תקף / "בקרת איכות" /
   "בדוק תסריט" a 720 learning-script PPTX (esp. filename with "יעד" or an explicit 720 mention).
@@ -33,7 +33,7 @@ description: >-
 
 - `references/qa-dimensions.md` ⭐ — קטלוג 35 הבדיקות: איך מזהים, חומרה, ניסוח-המלצה + טבלת כיול.
 - `references/authority-sources.md` ⭐ — מקורות-הסמכות לבדיקות נכונות (#5/#6/#7) + תוויות-ביטחון.
-- `references/structure-and-ids.md` — מבנה היחידה, 4 רכיבים, סכמת ID, קיבוץ שקפי-מצב, פישור מטא.
+- `references/structure-and-ids.md` — מבנה היחידה, 5–6 רכיבים (כל שיא=רכיב), סכמת ID, קיבוץ שקפי-מצב, שלמות מטא.
 - `references/math-typography.md` — כללי כתיבה מתמטית (`·` לכפל, `100%`, מקפים, RTL).
 - `references/language-and-register.md` ⭐ — עריכת-לשון ו-register לגיל 13–14 (#1/#21): קטלוג 6
   משפחות-ליקוי, טבלת register, וטבלת כיול. **קריאה לשונית של כל שקף מולו (שלב 5).**
@@ -63,7 +63,7 @@ description: >-
 **החלטה:**
 - יש "יעד" בשם **או** נמצאה ≥1 טביעת-אצבע → זה 720, המשך רגיל.
 - **אין אף סימן** → אל תריץ. אמור למשתמש: *"הקובץ לא נראה כתסריט 720 (אין 'יעד' בשם ולא זוהו מזהי
-  methodica/מבנה 4-רכיבים/טבלת-מטא). 35 הבדיקות מכוילות ל-720 בלבד — להריץ בכל זאת?"* והמתן לאישור.
+  methodica/מבנה 5–6 רכיבים/טבלת-מטא). 35 הבדיקות מכוילות ל-720 בלבד — להריץ בכל זאת?"* והמתן לאישור.
 
 ### 2. חילוץ טקסט
 ```bash

@@ -15,6 +15,7 @@ const md = fs.readFileSync(inPath, 'utf8');
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const inline = (s) => esc(s)
+  .replace(/&lt;br\s*\/?&gt;/gi, '<br>') // allow explicit <br> line-breaks inside table cells
   .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
   .replace(/`([^`]+)`/g, '<code>$1</code>');
 const sevClass = (s) => s.includes('🔴') ? 'blocker' : s.includes('🟠') ? 'warning' : s.includes('🔵') ? 'polish' : '';
