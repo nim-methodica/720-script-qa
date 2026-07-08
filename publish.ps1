@@ -21,11 +21,17 @@ Write-Host "תזכורת: אם שונו בדיקות/references — להריץ �
 
 # 3. סנכרון dev → global (תוכן הסקיל בלבד, בלי .git)
 if (-not (Test-Path $glob)) { New-Item -ItemType Directory -Path $glob -Force | Out-Null }
-foreach ($item in 'SKILL.md','README.md','CHANGELOG.md','publish.ps1','references','scripts','examples','tests') {
-    $p = Join-Path $dev $item
-    if (Test-Path $p) { Copy-Item -LiteralPath $p -Destination $glob -Recurse -Force }
+$devFull  = (Resolve-Path $dev).Path
+$globFull = (Resolve-Path $glob).Path
+if ($devFull -ne $globFull) {
+    foreach ($item in 'SKILL.md','README.md','CHANGELOG.md','publish.ps1','references','scripts','examples','tests') {
+        $p = Join-Path $dev $item
+        if (Test-Path $p) { Copy-Item -LiteralPath $p -Destination $glob -Recurse -Force }
+    }
+    Write-Host "sync -> $glob" -ForegroundColor Green
+} else {
+    Write-Host "dev == glob (אותה תיקייה) — מדלג על סנכרון" -ForegroundColor Yellow
 }
-Write-Host "sync -> $glob" -ForegroundColor Green
 
 # 4. git commit + push (אם יש מה)
 Push-Location $dev
