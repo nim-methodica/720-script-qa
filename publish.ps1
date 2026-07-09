@@ -24,7 +24,7 @@ if (-not (Test-Path $glob)) { New-Item -ItemType Directory -Path $glob -Force | 
 $devFull  = (Resolve-Path $dev).Path
 $globFull = (Resolve-Path $glob).Path
 if ($devFull -ne $globFull) {
-    foreach ($item in 'SKILL.md','README.md','CHANGELOG.md','publish.ps1','references','scripts','examples','tests') {
+    foreach ($item in 'SKILL.md','README.md','INSTALL.html','CHANGELOG.md','publish.ps1','references','scripts','examples','tests') {
         $p = Join-Path $dev $item
         if (Test-Path $p) { Copy-Item -LiteralPath $p -Destination $glob -Recurse -Force }
     }
@@ -52,7 +52,7 @@ try {
 # 5. zip טרי לאדמין (SKILL.md בשורש הארכיון)
 $stage = Join-Path $env:TEMP ("pkg720-" + [guid]::NewGuid().ToString("N").Substring(0,8))
 New-Item -ItemType Directory -Path $stage -Force | Out-Null
-foreach ($item in 'SKILL.md','README.md','CHANGELOG.md','references','scripts','examples','tests') {
+foreach ($item in 'SKILL.md','README.md','INSTALL.html','CHANGELOG.md','references','scripts','examples','tests') {
     $p = Join-Path $dev $item
     if (Test-Path $p) { Copy-Item -LiteralPath $p -Destination $stage -Recurse -Force }
 }

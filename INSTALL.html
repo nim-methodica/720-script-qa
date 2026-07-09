@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>התקנת הסקיל 720-script-qa</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#1f2733; --muted:#5b6675; --line:#e3e7ee;
+    --brand:#0a6cbf; --brand-d:#074f8c; --ok:#1a7f4b; --okbg:#e8f6ee;
+    --warn:#a15c00; --warnbg:#fdf3e2; --code:#0f172a; --codebg:#f1f3f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI",Arial,"Helvetica Neue",sans-serif;line-height:1.65;font-size:16px}
+  .wrap{max-width:860px;margin:0 auto;padding:28px 20px 64px}
+  header{background:linear-gradient(135deg,var(--brand),var(--brand-d));color:#fff;
+    border-radius:16px;padding:26px 28px;box-shadow:0 6px 24px rgba(10,108,191,.18)}
+  header h1{margin:0 0 6px;font-size:26px}
+  header p{margin:0;opacity:.92;font-size:15px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;margin:18px 0;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  h2{font-size:20px;margin:2px 0 12px;display:flex;align-items:center;gap:10px}
+  .num{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;
+    background:var(--brand);color:#fff;border-radius:50%;font-size:15px;font-weight:700;flex:0 0 auto}
+  h3{font-size:16px;margin:16px 0 6px;color:var(--brand-d)}
+  p{margin:8px 0}
+  code,kbd{font-family:"Consolas","SF Mono",monospace;background:var(--codebg);
+    color:var(--code);padding:1.5px 6px;border-radius:5px;font-size:.92em;direction:ltr;display:inline-block}
+  pre{background:var(--code);color:#e6edf3;border-radius:10px;padding:14px 16px;overflow:auto;
+    direction:ltr;text-align:left;font-family:"Consolas","SF Mono",monospace;font-size:14px;margin:10px 0}
+  pre .c{color:#7d8590}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:right;vertical-align:top}
+  th{background:#eef2f7;font-weight:700}
+  td code{white-space:nowrap}
+  .tag{font-size:12px;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap}
+  .req{background:#fde8e8;color:#b42318}
+  .opt{background:#eaf2fb;color:var(--brand-d)}
+  .note{background:var(--warnbg);border:1px solid #f0d8a8;border-radius:10px;padding:12px 14px;margin:12px 0}
+  .note b{color:var(--warn)}
+  .ok{background:var(--okbg);border:1px solid #bfe6cd;border-radius:10px;padding:12px 14px;margin:12px 0}
+  .ok b{color:var(--ok)}
+  ul{margin:8px 0;padding-inline-start:22px}
+  li{margin:5px 0}
+  .path{background:#eef2f7;border:1px dashed #b9c4d4;border-radius:8px;padding:10px 12px;
+    direction:ltr;text-align:left;font-family:"Consolas",monospace;font-size:14px;margin:8px 0}
+  .foot{color:var(--muted);font-size:13px;text-align:center;margin-top:26px}
+  .chk{list-style:none;padding:0;margin:8px 0}
+  .chk li{padding-inline-start:30px;position:relative}
+  .chk li::before{content:"✔";position:absolute;inset-inline-start:0;color:var(--ok);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>התקנת הסקיל <span dir="ltr">720-script-qa</span></h1>
+    <p>בקרת איכות לתסריטי הדרכה 720 · מדריך התקנה למחשב חדש</p>
+  </header>
+
+  <div class="ok">
+    <b>בקצרה:</b> פתיחת ה-<span dir="ltr">zip</span> למקום הנכון היא רק שלב אחד. צריך גם להתקין
+    <b>Python + שתי חבילות pip</b>, ורצוי <b>Node.js</b>. בלי אלה הסקיל לא ירוץ. הפירוט מטה.
+  </div>
+
+  <div class="card">
+    <h2><span class="num">1</span> פתיחת החבילה למיקום הנכון</h2>
+    <p>פתחו את <code>720-script-qa.zip</code> כך שהתוכן יישב ישירות תחת תיקיית הסקילים של המשתמש:</p>
+    <div class="path">C:\Users\&lt;שם-המשתמש&gt;\.claude\skills\720-script-qa\</div>
+    <p><code>SKILL.md</code> חייב להיות <b>ישירות בתוך התיקייה הזו</b> — לא בתוך תת-תיקייה עוטפת.
+    Claude Code מזהה סקילים לפי המבנה הזה; אם נוצרה תיקייה מיותרת באמצע, הסקיל לא יזוהה.</p>
+    <h3>איך בודקים שהמבנה תקין</h3>
+    <p>אחרי הפתיחה, בתוך <code>...\skills\720-script-qa\</code> אמורים להופיע:</p>
+    <ul class="chk">
+      <li><code>SKILL.md</code>, <code>README.md</code>, <code>INSTALL.html</code>, <code>CHANGELOG.md</code></li>
+      <li>התיקיות <code>scripts\</code> , <code>references\</code> , <code>examples\</code> , <code>tests\</code></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">2</span> התקנת התלויות (במחשב — לא בתוך ה-zip)</h2>
+    <table>
+      <tr><th>רכיב</th><th>פקודה / מקור</th><th>בשביל מה</th><th>נדרש?</th></tr>
+      <tr>
+        <td><b>Python 3</b></td>
+        <td><a href="https://www.python.org/downloads/">python.org</a> (לסמן «Add to PATH»)</td>
+        <td>מריץ את כל הסקריפטים</td>
+        <td><span class="tag req">חובה</span></td>
+      </tr>
+      <tr>
+        <td><b>markitdown</b></td>
+        <td><code>python -m pip install "markitdown[pptx]"</code></td>
+        <td>חילוץ הטקסט מה-PPTX (שלב ראשון)</td>
+        <td><span class="tag req">חובה</span></td>
+      </tr>
+      <tr>
+        <td><b>python-pptx</b></td>
+        <td><code>python -m pip install python-pptx</code></td>
+        <td><span dir="ltr">geometry_scan.py</span> — מיקום סמני-✓, גלישות, חילוץ תמונות</td>
+        <td><span class="tag req">חובה</span></td>
+      </tr>
+      <tr>
+        <td><b>Node.js</b></td>
+        <td><a href="https://nodejs.org/">nodejs.org</a> (LTS)</td>
+        <td>הפקת דוח ה-HTML (<span dir="ltr">md-to-html.js</span>)</td>
+        <td><span class="tag opt">רצוי</span></td>
+      </tr>
+    </table>
+    <h3>שורת התקנה אחת (העתקה-הדבקה לטרמינל)</h3>
+    <pre>python -m pip install "markitdown[pptx]" python-pptx</pre>
+    <div class="note">
+      <b>שימו לב:</b> אם <code>python</code> לא מזוהה, נסו <code>py -m pip install ...</code> (Windows)
+      או <code>python3 -m pip install ...</code>. בלי <b>Node.js</b> הסקיל עדיין עובד — פשוט מפיק רק
+      <code>report.md</code> בלי גרסת ה-HTML.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">3</span> קובצי מקורות-הסמכות <span class="tag opt">אופציונלי</span></h2>
+    <p>בדיקות הנכונות (#5/#6/#7) מצליבות מול ספרי-לימוד וטקסונומיות. הקבצים האלה
+    <b>אינם נכללים בחבילה</b> (זכויות יוצרים). כדי להפעיל הצלבה מול מקור, הניחו אותם מקומית תחת:</p>
+    <div class="path">&lt;פרויקט&gt;\.claude\input\</div>
+    <p>בלעדיהם הסקיל עדיין רץ — בדיקות הנכונות פשוט יסומנו «לאמת מול מומחה תוכן» במקום הצלבה אוטומטית.
+    פירוט: <code>references/authority-sources.md</code>.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">4</span> הערת עברית ב-Windows</h2>
+    <p>הסקיל מריץ את <span dir="ltr">markitdown</span> עם <code>PYTHONUTF8=1</code> באופן פנימי כדי שהעברית
+    לא תצא כ-<code>?</code>. בדרך כלל אין צורך בפעולה — רק ודאו שה-Python מותקן תקין וש-<code>pip</code> עבד.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">5</span> בדיקת שהתקנה עבדה</h2>
+    <ul>
+      <li>פתחו את Claude Code בפרויקט כלשהו והריצו <code>/720-script-qa</code> — הסקיל אמור להופיע.</li>
+      <li>בדיקה מהירה של התלויות מהטרמינל:</li>
+    </ul>
+    <pre>python -c "import markitdown, pptx; print('python deps OK')"
+node --version   <span class="c"># אמור להדפיס מספר גרסה</span></pre>
+    <div class="ok"><b>אם שתי השורות עברו בלי שגיאה</b> — הסקיל מוכן לשימוש: העלו תסריט PPTX ובקשו «בצע בקרה מקיפה».</div>
+  </div>
+
+  <div class="note">
+    <b>לגבי עדכונים:</b> החבילה שנפתחה היא צילום-מצב (בלי git). כדי לעדכן בעתיד — פותחים zip חדש
+    לאותה תיקייה (דורס), או מושכים <span dir="ltr">git pull</span> מהמאגר
+    <a href="https://github.com/nim-methodica/720-script-qa" dir="ltr">github.com/nim-methodica/720-script-qa</a>.
+    אין עדכון אוטומטי.
+  </div>
+
+  <p class="foot">720-script-qa · מדריך התקנה · methodica</p>
+
+</div>
+</body>
+</html>

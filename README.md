@@ -37,6 +37,7 @@
 ## דרישות
 
 - **markitdown** (חילוץ טקסט מ-PPTX): `pip install "markitdown[pptx]"`
+- **python-pptx** (סריקה גיאומטרית — `scripts/geometry_scan.py`): `pip install python-pptx`
 - **Node.js** (המרת הדוח ל-HTML): `scripts/md-to-html.js` (ללא תלויות חיצוניות).
 - **Python 3** (הסורק הדטרמיניסטי): `scripts/scan.py` (ללא תלויות).
 
