@@ -27,6 +27,7 @@
   p{margin:8px 0}
   code,kbd{font-family:"Consolas","SF Mono",monospace;background:var(--codebg);
     color:var(--code);padding:1.5px 6px;border-radius:5px;font-size:.92em;direction:ltr;display:inline-block}
+  kbd{background:#fff;border:1px solid #c7ced8;border-bottom-width:2px;box-shadow:0 1px 0 #e9edf2;font-weight:600}
   pre{background:var(--code);color:#e6edf3;border-radius:10px;padding:14px 16px;overflow:auto;
     direction:ltr;text-align:left;font-family:"Consolas","SF Mono",monospace;font-size:14px;margin:10px 0}
   pre .c{color:#7d8590}
@@ -41,8 +42,11 @@
   .note b{color:var(--warn)}
   .ok{background:var(--okbg);border:1px solid #bfe6cd;border-radius:10px;padding:12px 14px;margin:12px 0}
   .ok b{color:var(--ok)}
-  ul{margin:8px 0;padding-inline-start:22px}
-  li{margin:5px 0}
+  ul,ol{margin:8px 0;padding-inline-start:22px}
+  li{margin:6px 0}
+  ol li{padding-inline-start:4px}
+  .sub{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin:12px 0}
+  .sub h3{margin-top:0}
   .path{background:#eef2f7;border:1px dashed #b9c4d4;border-radius:8px;padding:10px 12px;
     direction:ltr;text-align:left;font-family:"Consolas",monospace;font-size:14px;margin:8px 0}
   .foot{color:var(--muted);font-size:13px;text-align:center;margin-top:26px}
@@ -107,12 +111,50 @@
         <td><span class="tag opt">רצוי</span></td>
       </tr>
     </table>
-    <h3>שורת התקנה אחת (העתקה-הדבקה לטרמינל)</h3>
-    <pre>python -m pip install "markitdown[pptx]" python-pptx</pre>
-    <div class="note">
-      <b>שימו לב:</b> אם <code>python</code> לא מזוהה, נסו <code>py -m pip install ...</code> (Windows)
-      או <code>python3 -m pip install ...</code>. בלי <b>Node.js</b> הסקיל עדיין עובד — פשוט מפיק רק
-      <code>report.md</code> בלי גרסת ה-HTML.
+    <p style="margin-top:14px"><b>לא צריך לדעת כלום על מחשבים.</b> עוקבים אחרי 4 השלבים הקטנים לפי הסדר — רק
+    להעתיק, להדביק, וללחוץ <kbd>Enter</kbd>. אין צורך להבין מה מופיע על המסך.</p>
+
+    <div class="sub">
+      <h3>2א · התקנת Python</h3>
+      <ul>
+        <li>היכנסו ל-<a href="https://www.python.org/downloads/">python.org/downloads</a> ולחצו על הכפתור הצהוב הגדול «Download Python».</li>
+        <li>פִתחו את הקובץ שירד (לחיצה כפולה עליו).</li>
+        <li><b>הכי חשוב:</b> במסך הראשון של ההתקנה, סמנו ✅ את התיבה שכתוב לידה <code>Add python.exe to PATH</code> (בתחתית החלון) — ורק אז לחצו <b>Install Now</b>.</li>
+        <li>אם Python כבר מותקן במחשב — דלגו לשלב 2ב.</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <h3>2ב · פתיחת «הטרמינל» (חלון הפקודות)</h3>
+      <p>«טרמינל» הוא פשוט חלון שבו מקלידים פקודות. ב-Windows פותחים אותו כך:</p>
+      <ol>
+        <li>לחצו על מקש <kbd>⊞ Windows</kbd> במקלדת (הכפתור עם סמל החלונות), או על כפתור «התחל».</li>
+        <li>הקלידו שלוש אותיות: <kbd>cmd</kbd></li>
+        <li>לחצו <kbd>Enter</kbd>. ייפתח חלון (בדרך-כלל שחור או כחול-כהה) עם טקסט — <b>זה הטרמינל</b>.</li>
+      </ol>
+    </div>
+
+    <div class="sub">
+      <h3>2ג · התקנת שני הרכיבים של Python (markitdown ו-python-pptx)</h3>
+      <p>אין להם אתר להורדה — הם <b>יורדים אוטומטית מהאינטרנט</b> ברגע שמריצים את הפקודה הבאה בטרמינל:</p>
+      <ol>
+        <li>סמנו את השורה הזו והעתיקו אותה (<kbd>Ctrl+C</kbd>):
+          <pre>python -m pip install "markitdown[pptx]" python-pptx</pre>
+        </li>
+        <li>חִזרו לחלון הטרמינל והדביקו את השורה: <b>לחצו קליק ימני</b> בתוך החלון (או <kbd>Ctrl+V</kbd>) — השורה תופיע.</li>
+        <li>לחצו <kbd>Enter</kbd> והמתינו. יופיעו שורות טקסט רבות — <b>זה תקין</b>. ההתקנה הסתיימה כשהטקסט נעצר וחוזר סמן מהבהב בשורה חדשה, בלי המילה <code>error</code> באדום.</li>
+      </ol>
+      <div class="note"><b>אם מופיע «'python' is not recognized»:</b> סימן ש-Python לא נוסף כראוי. נסו את אותה שורה עם <code>py</code> במקום <code>python</code>:<br>
+        <code>py -m pip install "markitdown[pptx]" python-pptx</code><br>
+        אם עדיין לא עובד — התקינו מחדש את Python (שלב 2א) והפעם ודאו שסימנתם ✅ «Add python.exe to PATH».</div>
+    </div>
+
+    <div class="sub">
+      <h3>2ד · התקנת Node.js</h3>
+      <ul>
+        <li>היכנסו ל-<a href="https://nodejs.org/">nodejs.org</a>, לחצו על הכפתור עם הכיתוב <b>LTS</b> (המומלץ), פִתחו את הקובץ שירד, ולחצו <b>Next</b> עד <b>Finish</b> — אין צורך לשנות שום הגדרה.</li>
+        <li>בלי Node.js הסקיל עדיין עובד — הוא פשוט מפיק רק את דוח ה-<code>report.md</code>, בלי גרסת ה-HTML היפה.</li>
+      </ul>
     </div>
   </div>
 
@@ -135,11 +177,11 @@
     <h2><span class="num">5</span> בדיקת שהתקנה עבדה</h2>
     <ul>
       <li>פתחו את Claude Code בפרויקט כלשהו והריצו <code>/720-script-qa</code> — הסקיל אמור להופיע.</li>
-      <li>בדיקה מהירה של התלויות מהטרמינל:</li>
+      <li>לבדיקה מהירה שהתלויות הותקנו: פתחו טרמינל (כמו בשלב 2ב), הדביקו את שתי השורות הבאות <b>אחת-אחת</b> — כל אחת ואחריה <kbd>Enter</kbd>:</li>
     </ul>
     <pre>python -c "import markitdown, pptx; print('python deps OK')"
-node --version   <span class="c"># אמור להדפיס מספר גרסה</span></pre>
-    <div class="ok"><b>אם שתי השורות עברו בלי שגיאה</b> — הסקיל מוכן לשימוש: העלו תסריט PPTX ובקשו «בצע בקרה מקיפה».</div>
+node --version</pre>
+    <div class="ok"><b>אם הראשונה הדפיסה <code>python deps OK</code> והשנייה הדפיסה מספר גרסה</b> (למשל <code>v20.11.0</code>) — הכל תקין והסקיל מוכן לשימוש: העלו תסריט PPTX לצ'אט ובקשו «בצע בקרה מקיפה».</div>
   </div>
 
   <div class="note">
