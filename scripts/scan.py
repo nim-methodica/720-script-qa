@@ -40,6 +40,10 @@ REDUNDANCY = [      # תבניות יתירות נפוצות (זיהוי + הצ�
     (re.compile(r"(?<![א-ת])ממש ממש(?![א-ת])"), "הגזמה כפולה 'ממש ממש'"),
     (re.compile(r"חזרה\s+בחזרה|יחד\s+ביחד"), "כפל מיותר"),
 ]
+# --- #4 טווח מספרים בסדר הפוך: בעברית הגדול לפני המקף ("2000-1300", לא "1300-2000") ---
+NUM_RANGE_RE = re.compile(r"(?<![\d.,])(\d[\d,]*)\s*-\s*(\d[\d,]*)(?![\d.,])")
+SEQ_REF_RE = re.compile(r"(שקפים?|עמודים?|סעיפים?|שאלות?|שלבים?|פריטים?|רכיב(?:ים)?|גרסאות?)\s*$")
+
 # --- #11 תבנית-פיגמה: שמות-תבנית מוכרים (אינדיקציה שהשקף מבוסס-תבנית) ---
 FIGMA_TOKENS = re.compile(
     r"TwoOptionSelection|SingleChoiceQuestion|MultipleChoice\w*|DropdownQuestion|ValueInputQuestion"
@@ -90,6 +94,19 @@ for sl, body in slides:
         # #4 כפל לטיני
         for mm in re.finditer(r"\d\s*[xX*]\s*\d", s):
             add(sl, "#4 כפל לטיני (→ ·)", f'"…{ctx(s, mm.start())}…"')
+        # #4 טווח מספרים בסדר הפוך (קטן-גדול) — לא חל על הפרש/חיסור ("5-3=2") ולא על
+        # רצף-סימוכין כרונולוגי ("שקפים 7-11"); ייתכן false-positive שיורי — לבדוק בהקשר
+        for mm in NUM_RANGE_RE.finditer(s):
+            left_raw, right_raw = mm.group(1), mm.group(2)
+            left, right = int(left_raw.replace(",", "")), int(right_raw.replace(",", ""))
+            if left >= right:
+                continue
+            if re.match(r"\s*=", s[mm.end(): mm.end() + 4]):
+                continue
+            if SEQ_REF_RE.search(s[max(0, mm.start() - 14): mm.start()]):
+                continue
+            add(sl, "#4 טווח מספרים בסדר הפוך (לבדוק)",
+                f'"…{ctx(s, mm.start())}…" → ייתכן שצ״ל "{right_raw}-{left_raw}" (הגדול לפני המקף)')
         # #2 מקף ארוך (— em-dash / – en-dash) — לא תקני בעברית + סימן-היכר של טקסט מ-AI
         for mm in re.finditer(r"[—–]", s):
             add(sl, "#2 מקף ארוך (—/–) — חשד-AI", f'"…{ctx(s, mm.start())}…" → להחליף ב-"-" או לנסח מחדש')

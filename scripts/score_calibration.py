@@ -14,13 +14,13 @@ A trap is VIOLATED when some finding matches its slide+check (and, if
 "trap_quote_must_not_contain" is set, only when the quote contains that text —
 this separates a legitimate plant on the same slide+check from the trap).
 
-PASS: >= 13/15 planted detected AND 0 trap violations.
+PASS: >= 14/16 planted detected AND 0 trap violations.
 """
 import io
 import json
 import sys
 
-PASS_MIN_DETECTED = 13
+PASS_MIN_DETECTED = 14
 
 
 def load(path):
