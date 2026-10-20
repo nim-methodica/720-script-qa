@@ -11,7 +11,7 @@ Each input file is one subagent's return value:
   "findings": [
     {"slide": 17,                   # primary slide (int)
      "slides_extra": [34, 35],      # optional: other slides of the same finding
-     "check": 29,                   # 1..36
+     "check": 29,                   # 1..45
      "severity": "🔴",              # 🔴 / 🟠 / 🔵
      "quote": "...",                # verbatim quote from the slide (required)
      "recommendation": "...",       # full, paste-ready recommendation (required)
@@ -34,7 +34,7 @@ import sys
 
 SEVS = ["🔴", "🟠", "🔵"]
 SEV_ORDER = {s: i for i, s in enumerate(SEVS)}
-N_CHECKS = 36
+N_CHECKS = 45
 
 
 def load(path):
